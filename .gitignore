@@ -1,10 +1,6 @@
 # Ignorar o diretório do ambiente virtual
 chatbot_env/
 
-# Ignorar arquivos de dados intermediários gerados
-cloudwalk_documents.pkl
-cloudwalk_chunks.pkl
-
 # Ignorar o diretório do banco de dados vetorial ChromaDB (que agora estará na raiz)
 chroma_db/
 
