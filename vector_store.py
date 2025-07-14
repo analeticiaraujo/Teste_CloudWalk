@@ -5,7 +5,7 @@ from langchain_chroma import Chroma
 from langchain_core.documents import Document
 import pickle 
 
-# Load environment variables
+# Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
 
 # Função para inicializar o modelo de embeddings do Gemini

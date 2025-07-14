@@ -1,16 +1,16 @@
+# text_processing.py
+
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import pickle
 import os
 
-# Esse script é responsável por dividir documentos em pedaços menores
-# para facilitar o processamento e a indexação em um banco de dados vetorial.
 def split_documents_into_chunks(documents):
     """
     Splits a list of LangChain Document objects into smaller chunks.
     """
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,
-        chunk_overlap=200,
+        chunk_size=500,      # Tente um tamanho de chunk menor
+        chunk_overlap=100,   # E um overlap menor para chunks mais concisos
         length_function=len,
         is_separator_regex=False,
     )
@@ -19,7 +19,6 @@ def split_documents_into_chunks(documents):
     chunks = text_splitter.split_documents(documents)
     print(f"Created {len(chunks)} chunks.")
 
-    # Mostrar alguns exemplos dos chunks criados
     if chunks:
         print("\n--- Sample of first few chunks ---")
         for i, chunk in enumerate(chunks[:3]):
@@ -30,10 +29,7 @@ def split_documents_into_chunks(documents):
 
     return chunks
 
-# Executa o script se for chamado diretamente
 if __name__ == "__main__":
-    # Se o arquivo de documentos já existir, carrega os documentos dele
-    # Caso contrário, executa a ingestão de dados para criar o arquivo pkl
     docs_pkl_path = "cloudwalk_documents.pkl"
     cloudwalk_docs = []
 
@@ -43,13 +39,9 @@ if __name__ == "__main__":
             cloudwalk_docs = pickle.load(f)
         print(f"Loaded {len(cloudwalk_docs)} documents.")
     else:
-        print(f"'{docs_pkl_path}' not found. Running data ingestion...")
-        # Só executa a ingestão de dados se o arquivo pkl não existir
-        from data_ingestion import load_cloudwalk_data
-        cloudwalk_docs = load_cloudwalk_data()
-        # O load_cloudwalk_data já salva os documentos no pkl, portanto não é necessário salvar novamente
+        print(f"'{docs_pkl_path}' not found. Please run your data ingestion scripts and combine them first.")
+        exit("Please run data_ingestion_cloudwalk.py, data_ingestion_infinitepay.py, data_ingestion_reclameaqui.py, and combine_all_scraped_documents.py first.")
 
-    # Se houver documentos carregados, divide-os em pedaços menores
     if cloudwalk_docs:
         chunks = split_documents_into_chunks(cloudwalk_docs)
         with open("cloudwalk_chunks.pkl", "wb") as f:

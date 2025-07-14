@@ -1,4 +1,7 @@
-This environment contains the scripts and dependencies to prepare data, generate embeddings, and run the RAG chatbot using Streamlit.
+RAG Chatbot with Streamlit and Gemini
+This environment contains the scripts and dependencies to prepare data, generate embeddings, and run a RAG (Retrieval Augmented Generation) chatbot using Streamlit.
+
+Note: The data scraping process is already complete. The processed documents are available in cloudwalk_documents.pkl and the text chunks are in cloudwalk_chunks.pkl. Therefore, you do not need to run data_ingestion.py or text_processing.py.
 
 Script Structure 
 
